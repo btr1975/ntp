@@ -1,0 +1,15 @@
+# This docker file is to build the server from scratch
+FROM ubuntu:16.04 as temp1
+
+LABEL maintainer="e_ben_75-python@yahoo.com" \
+      description="This is a NTP Server" \
+      package-name="ntp" \
+      image-version="1.0"
+
+RUN apt-get update \
+    && apt-get install -y ntpd \
+    && apt-get clean
+
+EXPOSE 123/udp
+
+ENTRYPOINT ["/etc/init.d/ntp", "start"]
